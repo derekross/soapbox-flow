@@ -30,7 +30,7 @@ print_header "Soapbox Flow Uninstaller"
 
 echo ""
 echo "This will remove:"
-echo "  • Claude Code skill symlinks"
+echo "  • Claude Code skills (~/.claude/skills/)"
 echo "  • Soapbox Flow configuration (~/.config/soapbox-flow/)"
 echo ""
 echo "This will NOT remove:"
@@ -46,12 +46,12 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 0
 fi
 
-# Remove skill symlinks
-print_step "Removing Claude Code skill symlinks..."
+# Remove skill directories
+print_step "Removing Claude Code skills..."
 for skill in executive-assistant nostr-devrel content-research-writer planning-with-files docx pptx xlsx strategic-planning; do
     target="$HOME/.claude/skills/$skill"
-    if [[ -L "$target" ]]; then
-        rm "$target"
+    if [[ -d "$target" ]] || [[ -L "$target" ]]; then
+        rm -rf "$target"
         echo "  Removed: $skill"
     fi
 done

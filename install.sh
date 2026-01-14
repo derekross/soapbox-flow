@@ -413,7 +413,7 @@ setup_skills() {
     # Create skills directory if needed
     mkdir -p ~/.claude/skills
 
-    # Symlink each skill
+    # Copy each skill directory
     for skill_dir in "$SCRIPT_DIR"/skills/*/; do
         if [[ -d "$skill_dir" ]]; then
             skill_name=$(basename "$skill_dir")
@@ -428,13 +428,12 @@ setup_skills() {
             # Remove existing symlink or directory
             if [[ -L "$target" ]]; then
                 rm "$target"
-            elif [[ -d "$target" ]]; then
-                print_warning "Skill '$skill_name' exists, skipping (remove manually to update)"
-                continue
             fi
 
-            ln -sf "$skill_dir" "$target"
-            print_substep "Linked: $skill_name"
+            # Copy skill directory (overwrite if exists)
+            rm -rf "$target"
+            cp -r "$skill_dir" "$target"
+            print_substep "Installed: $skill_name"
         fi
     done
 
