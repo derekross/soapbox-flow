@@ -1,0 +1,139 @@
+# vdirsyncer Configuration
+# Template for Soapbox Flow
+# Copy to ~/.config/vdirsyncer/config and customize placeholders
+
+# =============================================================================
+# General Settings
+# =============================================================================
+
+[general]
+# Where to store sync status
+status_path = "~/.local/share/vdirsyncer/status/"
+
+# =============================================================================
+# Google Calendar Sync
+# =============================================================================
+
+[pair google_calendar]
+a = "google_calendar_local"
+b = "google_calendar_remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+
+[storage google_calendar_local]
+type = "filesystem"
+path = "~/.local/share/khal/calendars/synced/"
+fileext = ".ics"
+
+[storage google_calendar_remote]
+type = "caldav"
+# Replace {{USER_EMAIL}} with your Gmail address
+url = "https://www.google.com/calendar/dav/{{USER_EMAIL}}/events/"
+username = "{{USER_EMAIL}}"
+# Replace {{APP_PASSWORD}} with your Google App Password
+# Create at: https://myaccount.google.com/apppasswords
+password = "{{APP_PASSWORD}}"
+
+# =============================================================================
+# Google Contacts Sync
+# =============================================================================
+
+[pair google_contacts]
+a = "google_contacts_local"
+b = "google_contacts_remote"
+collections = ["from a", "from b"]
+
+[storage google_contacts_local]
+type = "filesystem"
+path = "~/.local/share/khard/contacts/personal/"
+fileext = ".vcf"
+
+[storage google_contacts_remote]
+type = "carddav"
+url = "https://www.googleapis.com/carddav/v1/principals/{{USER_EMAIL}}/lists/default/"
+username = "{{USER_EMAIL}}"
+password = "{{APP_PASSWORD}}"
+
+# =============================================================================
+# Nextcloud Calendar (Alternative to Google)
+# =============================================================================
+
+# Uncomment and configure if using Nextcloud:
+
+# [pair nextcloud_calendar]
+# a = "nextcloud_calendar_local"
+# b = "nextcloud_calendar_remote"
+# collections = ["from a", "from b"]
+# metadata = ["color"]
+
+# [storage nextcloud_calendar_local]
+# type = "filesystem"
+# path = "~/.local/share/khal/calendars/nextcloud/"
+# fileext = ".ics"
+
+# [storage nextcloud_calendar_remote]
+# type = "caldav"
+# url = "https://your-nextcloud.com/remote.php/dav/calendars/{{USERNAME}}/"
+# username = "{{USERNAME}}"
+# password = "{{PASSWORD}}"
+
+# =============================================================================
+# Nextcloud Contacts (Alternative to Google)
+# =============================================================================
+
+# [pair nextcloud_contacts]
+# a = "nextcloud_contacts_local"
+# b = "nextcloud_contacts_remote"
+# collections = ["from a", "from b"]
+
+# [storage nextcloud_contacts_local]
+# type = "filesystem"
+# path = "~/.local/share/khard/contacts/nextcloud/"
+# fileext = ".vcf"
+
+# [storage nextcloud_contacts_remote]
+# type = "carddav"
+# url = "https://your-nextcloud.com/remote.php/dav/addressbooks/users/{{USERNAME}}/"
+# username = "{{USERNAME}}"
+# password = "{{PASSWORD}}"
+
+# =============================================================================
+# Local-Only Calendar (No Sync)
+# =============================================================================
+
+# For a local-only calendar that doesn't sync anywhere:
+
+# [pair local_only]
+# a = "local_calendar"
+# b = "local_calendar"
+# collections = null
+
+# [storage local_calendar]
+# type = "filesystem"
+# path = "~/.local/share/khal/calendars/local/"
+# fileext = ".ics"
+
+# =============================================================================
+# Setup Instructions
+# =============================================================================
+
+# After configuring:
+#
+# 1. Create local directories:
+#    mkdir -p ~/.local/share/khal/calendars/{local,synced}
+#    mkdir -p ~/.local/share/khard/contacts/personal
+#    mkdir -p ~/.local/share/vdirsyncer/status
+#
+# 2. Discover calendars:
+#    vdirsyncer discover
+#
+# 3. Initial sync:
+#    vdirsyncer sync
+#
+# 4. Test with khal:
+#    khal list today 7d
+#
+# For Google Calendar:
+# - Enable 2-Step Verification on your Google account
+# - Create an App Password at https://myaccount.google.com/apppasswords
+# - Use that App Password (not your regular password)

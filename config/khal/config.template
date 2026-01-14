@@ -1,0 +1,122 @@
+# khal Configuration
+# Template for Soapbox Flow
+# Copy to ~/.config/khal/config and customize placeholders
+
+# =============================================================================
+# Calendars
+# =============================================================================
+
+[calendars]
+
+# Local calendar (for events created locally)
+[[local]]
+path = ~/.local/share/khal/calendars/local/
+color = dark green
+readonly = False
+
+# Synced calendar (from Google/Nextcloud via vdirsyncer)
+[[synced]]
+path = ~/.local/share/khal/calendars/synced/
+color = dark blue
+readonly = False
+
+# Work calendar (uncomment if separate)
+# [[work]]
+# path = ~/.local/share/khal/calendars/work/
+# color = dark red
+# readonly = False
+
+# =============================================================================
+# Default Settings
+# =============================================================================
+
+[default]
+# Which calendar to use for new events
+default_calendar = local
+
+# Highlight days with events
+highlight_event_days = True
+
+# =============================================================================
+# Locale Settings
+# =============================================================================
+
+[locale]
+# Time format (24-hour)
+timeformat = %H:%M
+
+# Date formats
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d %A
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M %A
+
+# First day of week: 0 = Monday, 6 = Sunday
+firstweekday = 0
+
+# Timezone - replace with your timezone
+# Find yours: timedatectl list-timezones | grep America
+local_timezone = {{TIMEZONE}}
+default_timezone = {{TIMEZONE}}
+
+# Unicode symbols (set to False for ASCII only)
+unicode_symbols = True
+
+# =============================================================================
+# View Settings
+# =============================================================================
+
+[view]
+# How many past events to show (in days)
+event_view_past_events = 2
+
+# How many future weeks to show
+event_view_weeksahead = 2
+
+# Show frame around calendar
+frame = True
+
+# Show week numbers
+week_numbers = left
+
+# Bold today's date
+bold_for_hierarchies = False
+
+# =============================================================================
+# Key Bindings (for interactive mode)
+# =============================================================================
+
+[keybindings]
+# Navigate
+left = h, left
+right = l, right
+up = k, up
+down = j, down
+
+# Actions
+new = n
+delete = d
+today = t
+search = /
+
+# Views
+view = enter
+save = ctrl s
+quit = q
+
+# =============================================================================
+# Highlighting
+# =============================================================================
+
+[highlight_days]
+# Color for days with events
+color = light blue
+default_color = dark gray
+
+# =============================================================================
+# SQLite Settings
+# =============================================================================
+
+[sqlite]
+# Path to the database (default is fine for most users)
+path = ~/.local/share/khal/khal.db

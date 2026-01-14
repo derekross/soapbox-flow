@@ -1,0 +1,146 @@
+# Taskwarrior Configuration
+# Template for Soapbox Flow
+# Copy to ~/.taskrc and customize placeholders
+
+# =============================================================================
+# Data Location
+# =============================================================================
+data.location=~/.task
+
+# =============================================================================
+# Color Theme
+# =============================================================================
+include /usr/share/taskwarrior/dark-256.theme
+
+# =============================================================================
+# User Defined Attributes (UDAs) for GitLab Integration
+# =============================================================================
+
+# GitLab issue number
+uda.gitlab_id.type=numeric
+uda.gitlab_id.label=GitLab ID
+
+# Direct URL to GitLab issue
+uda.gitlab_url.type=string
+uda.gitlab_url.label=GitLab URL
+
+# GitLab project name
+uda.gitlab_project.type=string
+uda.gitlab_project.label=Project
+
+# GitLab milestone
+uda.gitlab_milestone.type=string
+uda.gitlab_milestone.label=Milestone
+
+# =============================================================================
+# Date Formats
+# =============================================================================
+dateformat=Y-M-D
+dateformat.report=Y-M-D
+dateformat.annotation=Y-M-D
+
+# Weeks start on Monday
+weekstart=monday
+
+# =============================================================================
+# Urgency Coefficients
+# =============================================================================
+
+# Priority weight
+urgency.priority.coefficient=6.0
+
+# Due date weight (higher = more urgent as due date approaches)
+urgency.due.coefficient=12.0
+
+# Age weight (older tasks get slightly more urgent)
+urgency.age.coefficient=2.0
+
+# Tag-based urgency boosts
+urgency.user.tag.next.coefficient=15.0
+urgency.user.tag.today.coefficient=10.0
+urgency.user.tag.urgent.coefficient=8.0
+urgency.user.tag.blocked.coefficient=-5.0
+
+# Project-based urgency (uncomment and customize)
+# urgency.user.project.work.coefficient=2.0
+# urgency.user.project.personal.coefficient=1.0
+
+# Reduce urgency for waiting tasks
+urgency.waiting.coefficient=-3.0
+urgency.blocked.coefficient=-5.0
+
+# =============================================================================
+# Default Values
+# =============================================================================
+
+# No default due date (uncomment to set one)
+# default.due=eow
+
+# Default project (uncomment to set one)
+# default.project=inbox
+
+# =============================================================================
+# Custom Reports
+# =============================================================================
+
+# Today's tasks
+report.today.description=Tasks for today
+report.today.columns=id,start.age,priority,project,tags,due,description
+report.today.labels=ID,Active,P,Project,Tags,Due,Description
+report.today.filter=status:pending (due:today or +today)
+report.today.sort=urgency-
+
+# This week's tasks
+report.week.description=Tasks due this week
+report.week.columns=id,priority,project,tags,due,description
+report.week.labels=ID,P,Project,Tags,Due,Description
+report.week.filter=status:pending due.before:eow+1d
+report.week.sort=due+,urgency-
+
+# GitLab tasks
+report.gitlab.description=Tasks from GitLab
+report.gitlab.columns=id,gitlab_id,gitlab_project,priority,due,description
+report.gitlab.labels=ID,GL#,Project,P,Due,Description
+report.gitlab.filter=status:pending +gitlab
+report.gitlab.sort=gitlab_project+,urgency-
+
+# High priority tasks
+report.urgent.description=High priority tasks
+report.urgent.columns=id,project,tags,due,description
+report.urgent.labels=ID,Project,Tags,Due,Description
+report.urgent.filter=status:pending priority:H
+report.urgent.sort=due+,urgency-
+
+# =============================================================================
+# Contexts (uncomment and customize)
+# =============================================================================
+
+# context.work.read=project:work or +work
+# context.home.read=project:personal or +home
+# context.errands.read=+errands
+
+# =============================================================================
+# Sync (if using Taskwarrior sync server)
+# =============================================================================
+
+# taskd.server=
+# taskd.credentials=
+# taskd.certificate=
+# taskd.key=
+# taskd.ca=
+
+# =============================================================================
+# Miscellaneous
+# =============================================================================
+
+# Confirm before bulk changes
+bulk=3
+
+# Show task ID after adding
+verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait
+
+# Search is case insensitive
+search.case.sensitive=no
+
+# News/tips on startup (set to 'no' to disable)
+news.version=2.6.0

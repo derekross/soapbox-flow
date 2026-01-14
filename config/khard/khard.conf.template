@@ -1,0 +1,112 @@
+# khard Configuration
+# Template for Soapbox Flow
+# Copy to ~/.config/khard/khard.conf and customize placeholders
+
+# =============================================================================
+# Address Books
+# =============================================================================
+
+[addressbooks]
+
+# Personal contacts
+[[personal]]
+path = ~/.local/share/khard/contacts/personal/
+
+# Work contacts (uncomment if needed)
+# [[work]]
+# path = ~/.local/share/khard/contacts/work/
+
+# Nostr contacts (uncomment if you maintain Nostr contacts)
+# [[nostr]]
+# path = ~/.local/share/khard/contacts/nostr/
+
+# =============================================================================
+# General Settings
+# =============================================================================
+
+[general]
+# Default address book for new contacts
+default_addressbook = personal
+
+# Editor for editing contacts (uses $EDITOR if not set)
+editor = vim
+
+# Merge editor for resolving conflicts
+merge_editor = vimdiff
+
+# Show debug output
+debug = no
+
+# =============================================================================
+# Contact Table (List View)
+# =============================================================================
+
+[contact table]
+# Which name field to display
+# Options: first_name, last_name, formatted_name
+display = first_name
+
+# Group contacts by address book
+group_by_addressbook = yes
+
+# Reverse sort order
+reverse = no
+
+# Show nicknames in list
+show_nicknames = no
+
+# Show UIDs (usually not needed)
+show_uids = no
+
+# Sort field
+# Options: first_name, last_name, formatted_name
+sort = first_name
+
+# Localize dates
+localize_dates = yes
+
+# Preferred phone number type to show
+preferred_phone_number_type = cell, home, work
+
+# Preferred email type to show
+preferred_email_address_type = home, work
+
+# =============================================================================
+# vCard Settings
+# =============================================================================
+
+[vcard]
+# vCard version for new contacts
+# Options: 3.0, 4.0
+# Note: 3.0 has better compatibility
+preferred_version = 3.0
+
+# Search within vCard files (slower but more thorough)
+search_in_source_files = yes
+
+# Skip files that can't be parsed
+skip_unparsable = no
+
+# Private objects to keep (vendor extensions)
+# private_objects = X-ABLABEL, X-ABDATE
+
+# =============================================================================
+# Additional Fields
+# =============================================================================
+
+# To add custom fields, uncomment and modify:
+
+# [contact table]
+# # Add extra columns
+# additional_column = organisation
+# additional_column = birthday
+
+# =============================================================================
+# Aliases (Command Shortcuts)
+# =============================================================================
+
+# Create command aliases by adding a shell alias:
+# alias kn='khard new'
+# alias ke='khard edit'
+# alias kl='khard list'
+# alias ks='khard show'
