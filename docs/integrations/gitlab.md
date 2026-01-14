@@ -77,10 +77,10 @@ Run the daily sync to pull GitLab issues:
 
 ```bash
 # Full sync with Taskwarrior integration
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Dry run (preview without changes)
-python3 scripts/sync/daily_sync.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run
 ```
 
 ### View GitLab Tasks
@@ -118,7 +118,7 @@ Set up automatic syncing:
 crontab -e
 
 # Add daily sync at 8 AM
-0 8 * * * cd /path/to/soapbox-flow && python3 scripts/sync/daily_sync.py --sync-to-taskwarrior >> /tmp/daily_sync.log 2>&1
+0 8 * * * cd /path/to/soapbox-flow && ./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior >> /tmp/daily_sync.log 2>&1
 ```
 
 ### Systemd Timer

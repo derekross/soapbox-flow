@@ -289,7 +289,7 @@ khal new DATE TIME "Event"                   # Add event
 ./scripts/nostr/broadcast-shakespeare-events.sh  # Sync events
 
 # Reporting
-python3 scripts/sync/weekly_report.py        # Weekly report
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py  # Weekly report
 task project:devrel completed                 # Completed DevRel tasks
 ```
 

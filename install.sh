@@ -43,6 +43,10 @@ print_success() {
     echo -e "${GREEN}✓${NC} $1"
 }
 
+print_info() {
+    echo -e "${BLUE}ℹ${NC} $1"
+}
+
 # Check if command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -154,21 +158,108 @@ install_nak() {
 install_python_packages() {
     print_substep "Installing Python packages..."
 
-    # Check for pip
-    if ! command_exists pip3; then
-        print_substep "Installing pip..."
-        case $PKG_MANAGER in
-            apt) sudo apt-get install -y python3-pip ;;
-            dnf) sudo dnf install -y python3-pip ;;
-            pacman) sudo pacman -S --noconfirm python-pip ;;
-            brew) ;; # pip comes with python on macOS
-        esac
-    fi
+    # First, try to install CLI tools via system package manager
+    print_substep "Installing calendar/contacts tools..."
 
-    # Install packages
-    pip3 install --user khal khard vdirsyncer python-gitlab requests
+    case $PKG_MANAGER in
+        apt)
+            # Try system packages first (available on most Debian/Ubuntu)
+            if sudo apt-get install -y khal khard vdirsyncer 2>/dev/null; then
+                print_substep "Installed khal, khard, vdirsyncer via apt"
+            else
+                install_python_cli_tools
+            fi
+            ;;
+        dnf)
+            # Fedora has these in repos
+            if sudo dnf install -y khal khard vdirsyncer 2>/dev/null; then
+                print_substep "Installed khal, khard, vdirsyncer via dnf"
+            else
+                install_python_cli_tools
+            fi
+            ;;
+        pacman)
+            # Arch has these in community/AUR
+            if sudo pacman -S --noconfirm khal khard vdirsyncer 2>/dev/null; then
+                print_substep "Installed khal, khard, vdirsyncer via pacman"
+            else
+                install_python_cli_tools
+            fi
+            ;;
+        brew)
+            # macOS - use brew where available, pipx for rest
+            brew install vdirsyncer 2>/dev/null || true
+            install_python_cli_tools
+            ;;
+    esac
+
+    # Install Python libraries for sync scripts
+    install_python_libraries
 
     print_success "Python packages installed"
+}
+
+# Install Python CLI tools using pipx (handles PEP 668 externally managed environments)
+install_python_cli_tools() {
+    print_substep "Installing Python CLI tools via pipx..."
+
+    # Install pipx if not present
+    if ! command_exists pipx; then
+        print_substep "Installing pipx..."
+        case $PKG_MANAGER in
+            apt)
+                sudo apt-get install -y pipx 2>/dev/null || \
+                    python3 -m pip install --user pipx --break-system-packages 2>/dev/null || \
+                    python3 -m pip install --user pipx
+                ;;
+            dnf)
+                sudo dnf install -y pipx 2>/dev/null || \
+                    python3 -m pip install --user pipx
+                ;;
+            pacman)
+                sudo pacman -S --noconfirm python-pipx 2>/dev/null || \
+                    python3 -m pip install --user pipx
+                ;;
+            brew)
+                brew install pipx
+                ;;
+        esac
+
+        # Ensure pipx is in PATH
+        python3 -m pipx ensurepath 2>/dev/null || true
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
+
+    # Install CLI tools via pipx
+    for tool in khal khard vdirsyncer; do
+        if ! command_exists "$tool"; then
+            print_substep "Installing $tool..."
+            pipx install "$tool" 2>/dev/null || \
+                python3 -m pipx install "$tool" 2>/dev/null || \
+                print_warning "Could not install $tool via pipx"
+        else
+            print_substep "$tool already installed"
+        fi
+    done
+}
+
+# Install Python libraries for sync scripts
+install_python_libraries() {
+    print_substep "Installing Python libraries for sync scripts..."
+
+    # Create a virtual environment for sync scripts
+    VENV_DIR="$SCRIPT_DIR/scripts/sync/venv"
+
+    if [[ ! -d "$VENV_DIR" ]]; then
+        python3 -m venv "$VENV_DIR"
+    fi
+
+    # Install libraries in the venv
+    "$VENV_DIR/bin/pip" install --upgrade pip
+    "$VENV_DIR/bin/pip" install python-gitlab requests
+
+    print_substep "Libraries installed in scripts/sync/venv/"
+    print_info "Run sync scripts with: scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py"
 }
 
 # Install Obsidian

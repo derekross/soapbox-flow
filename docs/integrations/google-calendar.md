@@ -302,7 +302,7 @@ The `daily_sync.py` script uses khal to include calendar events in your daily ta
 
 ```bash
 # Generates schedule including calendar
-python3 scripts/sync/daily_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py
 ```
 
 Output includes today's calendar events in markdown format.

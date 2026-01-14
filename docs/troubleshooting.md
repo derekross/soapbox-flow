@@ -49,18 +49,30 @@ go install github.com/fiatjaf/nak@latest
 
 ### Python package installation fails
 
-**Symptom:** pip install errors for khal, khard, vdirsyncer
+**Symptom:** pip install errors for khal, khard, vdirsyncer (especially "externally-managed-environment" on Python 3.11+)
 
 **Solution:**
+
+The installer now handles this automatically by:
+1. Trying system packages first (apt/dnf/pacman)
+2. Using pipx for CLI tools (handles PEP 668 restrictions)
+3. Creating a venv for sync script libraries
+
+If you need to install manually:
+
 ```bash
-# Ensure pip is up to date
-pip3 install --upgrade pip
+# Option 1: Use pipx for CLI tools (recommended for Python 3.11+)
+pipx install khal
+pipx install khard
+pipx install vdirsyncer
 
-# Install with user flag
-pip3 install --user khal khard vdirsyncer
+# Option 2: System packages
+sudo apt install khal khard vdirsyncer  # Debian/Ubuntu
+sudo dnf install khal khard vdirsyncer  # Fedora
+sudo pacman -S khal khard vdirsyncer    # Arch
 
-# If still failing, try with --break-system-packages (Python 3.11+)
-pip3 install --user --break-system-packages khal khard vdirsyncer
+# Option 3: Use the venv created by the installer
+./scripts/sync/venv/bin/pip install python-gitlab requests
 ```
 
 ### Obsidian installation fails on Fedora
@@ -270,7 +282,7 @@ curl -H "Authorization: token YOUR_TOKEN" https://api.github.com/user
 
 3. **Run with verbose output:**
    ```bash
-   python3 scripts/sync/daily_sync.py --dry-run 2>&1 | tee sync-debug.log
+   ./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run 2>&1 | tee sync-debug.log
    ```
 
 ---
@@ -296,7 +308,7 @@ curl -H "Authorization: token YOUR_TOKEN" https://api.github.com/user
 
 3. **Run sync manually:**
    ```bash
-   python3 scripts/sync/gitlab_sync.py
+   ./scripts/sync/venv/bin/python3 scripts/sync/gitlab_sync.py
    ```
 
 ### Duplicate tasks
@@ -422,7 +434,7 @@ opencode --version
 
 3. **Run in background:**
    ```bash
-   nohup python3 scripts/sync/daily_sync.py &
+   nohup ./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py &
    ```
 
 ### Large vault causing issues

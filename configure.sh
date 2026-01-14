@@ -565,7 +565,7 @@ main() {
     echo "  1. Open Obsidian and enable OpenCode Sidebar plugin"
     echo "  2. Try: task list"
     echo "  3. Try: khal list today 7d"
-    echo "  4. Try: python3 scripts/sync/daily_sync.py --dry-run"
+    echo "  4. Try: ./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run"
     echo ""
     echo "Documentation: $SCRIPT_DIR/docs/"
     echo ""

@@ -83,15 +83,16 @@ Located in `scripts/sync/`. Python scripts for productivity sync.
 
 ### Setup
 
+The installer creates a virtual environment at `scripts/sync/venv/` automatically. If you need to set up manually:
+
 ```bash
 cd scripts/sync
 
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies (no need to activate venv)
+./venv/bin/pip install -r requirements.txt
 
 # Configure
 cp .env.example .env
@@ -104,10 +105,10 @@ Comprehensive daily sync of calendar, GitLab issues, and tasks.
 
 ```bash
 # Full sync with Taskwarrior integration
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Dry run (preview without saving)
-python3 scripts/sync/daily_sync.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run
 ```
 
 Outputs to: `~/Vault/Soapbox/Work/Tasks/YYYY-MM-DD-tasks.md`
@@ -118,10 +119,10 @@ Generate weekly activity reports.
 
 ```bash
 # Generate report
-python3 scripts/sync/weekly_report.py
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py
 
 # Dry run
-python3 scripts/sync/weekly_report.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py --dry-run
 ```
 
 Outputs to: `~/Vault/Soapbox/Work/Tasks/Reports/YYYY-WNN-report.md`
@@ -131,7 +132,7 @@ Outputs to: `~/Vault/Soapbox/Work/Tasks/Reports/YYYY-WNN-report.md`
 Sync GitLab issues to local tasks.
 
 ```bash
-python3 scripts/sync/gitlab_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/gitlab_sync.py
 ```
 
 Requires `GITLAB_TOKEN` and `GITLAB_PROJECT_IDS` in `.env`.
@@ -141,7 +142,7 @@ Requires `GITLAB_TOKEN` and `GITLAB_PROJECT_IDS` in `.env`.
 Sync tasks between GitLab and Taskwarrior.
 
 ```bash
-python3 scripts/sync/taskwarrior_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/taskwarrior_sync.py
 ```
 
 ### calendar_sync.py
@@ -149,7 +150,7 @@ python3 scripts/sync/taskwarrior_sync.py
 Sync calendar events via vdirsyncer.
 
 ```bash
-python3 scripts/sync/calendar_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/calendar_sync.py
 ```
 
 ### Configuration

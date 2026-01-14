@@ -160,11 +160,15 @@ Python scripts for synchronizing tasks, calendar, and data.
 
 ### Setup
 
+The installer automatically creates a virtual environment at `scripts/sync/venv/` with required dependencies. If you need to set up manually:
+
 ```bash
 cd scripts/sync
 
-# Create virtual environment (optional but recommended)
+# Create virtual environment
 python3 -m venv venv
+
+# Activate (for interactive use)
 source venv/bin/activate
 
 # Install dependencies
@@ -173,6 +177,20 @@ pip install -r requirements.txt
 # Configure
 cp .env.example .env
 vim .env  # Add your tokens and paths
+```
+
+### Running Sync Scripts
+
+**Option 1: Use the venv python directly (recommended)**
+```bash
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+```
+
+**Option 2: Activate the venv first**
+```bash
+source scripts/sync/venv/bin/activate
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+deactivate
 ```
 
 ### Configuration (.env)
@@ -201,13 +219,13 @@ TIMEZONE=America/Chicago
 **Usage:**
 ```bash
 # Full sync with Taskwarrior integration
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Preview without making changes
-python3 scripts/sync/daily_sync.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run
 
 # Skip calendar sync
-python3 scripts/sync/daily_sync.py --no-calendar
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --no-calendar
 ```
 
 **What it does:**
@@ -251,10 +269,10 @@ python3 scripts/sync/daily_sync.py --no-calendar
 **Usage:**
 ```bash
 # Generate report
-python3 scripts/sync/weekly_report.py
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py
 
 # Preview without saving
-python3 scripts/sync/weekly_report.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py --dry-run
 ```
 
 **Output file:** `$TASKS_PATH/Reports/YYYY-WNN-report.md`
@@ -274,7 +292,7 @@ python3 scripts/sync/weekly_report.py --dry-run
 
 **Usage:**
 ```bash
-python3 scripts/sync/gitlab_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/gitlab_sync.py
 ```
 
 **What it does:**
@@ -291,7 +309,7 @@ python3 scripts/sync/gitlab_sync.py
 
 **Usage:**
 ```bash
-python3 scripts/sync/taskwarrior_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/taskwarrior_sync.py
 ```
 
 **What it does:**
@@ -308,7 +326,7 @@ python3 scripts/sync/taskwarrior_sync.py
 
 **Usage:**
 ```bash
-python3 scripts/sync/calendar_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/calendar_sync.py
 ```
 
 **What it does:**
@@ -420,10 +438,10 @@ if __name__ == '__main__':
 crontab -e
 
 # Daily sync at 8 AM
-0 8 * * * cd /path/to/soapbox-flow && python3 scripts/sync/daily_sync.py --sync-to-taskwarrior >> /tmp/daily_sync.log 2>&1
+0 8 * * * cd /path/to/soapbox-flow && ./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior >> /tmp/daily_sync.log 2>&1
 
 # Weekly report on Fridays at 5 PM
-0 17 * * 5 cd /path/to/soapbox-flow && python3 scripts/sync/weekly_report.py >> /tmp/weekly_report.log 2>&1
+0 17 * * 5 cd /path/to/soapbox-flow && ./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py >> /tmp/weekly_report.log 2>&1
 
 # Calendar sync every 15 minutes
 */15 * * * * vdirsyncer sync >> /tmp/vdirsyncer.log 2>&1
@@ -457,7 +475,7 @@ export PATH="$HOME/go/bin:$PATH"
 
 ### Dry run everything first
 ```bash
-python3 scripts/sync/daily_sync.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run
 ```
 
 ---

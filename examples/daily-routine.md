@@ -10,7 +10,7 @@ A complete daily workflow using Soapbox Flow tools.
 
 ```bash
 # Run the daily sync
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Or use the quick commands
 vdirsyncer sync  # Calendar
@@ -198,7 +198,7 @@ task 9 modify +tomorrow
 ```bash
 # Sync everything
 vdirsyncer sync
-python3 scripts/sync/daily_sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py
 ```
 
 ### 5. Generate EOD Summary
@@ -226,14 +226,14 @@ khal list today eow
 task due.before:eow list
 
 # Generate weekly plan
-python3 scripts/sync/weekly_report.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py --dry-run
 ```
 
 ### Friday: Week Review
 
 ```bash
 # Generate weekly report
-python3 scripts/sync/weekly_report.py
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py
 
 # Review completed tasks
 task end.after:today-7d completed
@@ -248,7 +248,7 @@ task +COMPLETED delete
 
 | Time | Action | Command |
 |------|--------|---------|
-| 8:00 | Sync | `python3 scripts/sync/daily_sync.py --sync-to-taskwarrior` |
+| 8:00 | Sync | `./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior` |
 | 8:05 | Calendar | `khal list today 7d` |
 | 8:10 | Tasks | `task today` |
 | Throughout | Add task | `task add "Description" due:DATE` |

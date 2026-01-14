@@ -89,10 +89,10 @@ cp -r skills/nostr-devrel ~/.claude/skills/
 
 ```bash
 # Run daily sync (calendar + GitLab + tasks)
-python3 scripts/sync/daily-sync.py
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Generate weekly report
-python3 scripts/sync/weekly-report.py
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py
 ```
 
 ## Configuration

@@ -74,7 +74,7 @@ You should see your user profile JSON.
 The sync scripts can pull GitHub issues:
 
 ```bash
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 ```
 
 ### View GitHub Tasks
@@ -161,7 +161,7 @@ Add to your daily routine:
 
 ```bash
 # Morning sync
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # View today's GitHub tasks
 task +github due:today list

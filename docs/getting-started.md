@@ -78,7 +78,7 @@ task list
 khal list today 7d
 
 # Generate a daily task report
-python3 scripts/sync/daily_sync.py --dry-run
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --dry-run
 ```
 
 ## Directory Structure
@@ -147,10 +147,10 @@ khal new tomorrow 10:00 11:00 "Meeting"  # Add event
 
 ```bash
 # Run daily sync
-python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
+./scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py --sync-to-taskwarrior
 
 # Generate weekly report
-python3 scripts/sync/weekly_report.py
+./scripts/sync/venv/bin/python3 scripts/sync/weekly_report.py
 ```
 
 ## Next Steps
