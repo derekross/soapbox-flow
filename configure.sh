@@ -267,9 +267,20 @@ configure_nostr() {
         if [[ $REPLY == "2" ]]; then
             if command_exists nak; then
                 print_substep "Generating new keypair..."
-                KEYS=$(nak key generate 2>/dev/null)
-                NSEC=$(echo "$KEYS" | head -1)
-                NPUB=$(nak key public "$NSEC" 2>/dev/null)
+                NSEC=$(nak key generate 2>&1) || {
+                    print_error "Failed to generate keypair"
+                    return 1
+                }
+
+                if [[ -z "$NSEC" || ! "$NSEC" =~ ^nsec1 ]]; then
+                    print_error "Invalid key generated: $NSEC"
+                    return 1
+                fi
+
+                NPUB=$(nak key public "$NSEC" 2>&1) || {
+                    print_error "Failed to derive public key"
+                    return 1
+                }
                 NOSTR_NPUB="$NPUB"
 
                 echo ""
