@@ -134,12 +134,12 @@ install_nak() {
     # Get latest release
     LATEST_RELEASE=$(curl -s https://api.github.com/repos/fiatjaf/nak/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
     if [[ -z "$LATEST_RELEASE" ]]; then
-        print_warning "Could not determine latest nak release, using v0.7.6"
-        LATEST_RELEASE="v0.7.6"
+        print_warning "Could not determine latest nak release, using v0.17.4"
+        LATEST_RELEASE="v0.17.4"
     fi
 
-    # Download URL
-    NAK_URL="https://github.com/fiatjaf/nak/releases/download/${LATEST_RELEASE}/nak-${NAK_OS}-${ARCH}"
+    # Download URL (format: nak-v0.17.4-linux-amd64)
+    NAK_URL="https://github.com/fiatjaf/nak/releases/download/${LATEST_RELEASE}/nak-${LATEST_RELEASE}-${NAK_OS}-${ARCH}"
 
     # Download and install
     print_substep "Downloading nak ${LATEST_RELEASE}..."
