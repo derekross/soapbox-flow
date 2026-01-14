@@ -275,7 +275,14 @@ install_python_libraries() {
     # Create a virtual environment for sync scripts
     VENV_DIR="$SCRIPT_DIR/scripts/sync/venv"
 
-    if [[ ! -d "$VENV_DIR" ]]; then
+    # Check if venv exists AND is valid (has pip)
+    if [[ ! -f "$VENV_DIR/bin/pip" ]]; then
+        # Remove incomplete venv if it exists
+        if [[ -d "$VENV_DIR" ]]; then
+            print_substep "Removing incomplete virtual environment..."
+            rm -rf "$VENV_DIR"
+        fi
+
         if python3 -m venv "$VENV_DIR"; then
             print_substep "Created virtual environment"
         else
