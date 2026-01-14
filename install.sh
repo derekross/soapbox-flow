@@ -143,12 +143,22 @@ install_nak() {
 
     # Download and install
     print_substep "Downloading nak ${LATEST_RELEASE}..."
-    if curl -sL "$NAK_URL" -o /tmp/nak; then
-        chmod +x /tmp/nak
-        sudo mv /tmp/nak /usr/local/bin/nak
-        print_success "nak installed to /usr/local/bin/nak"
+    print_substep "URL: $NAK_URL"
+
+    if curl -fSL "$NAK_URL" -o /tmp/nak 2>/dev/null; then
+        # Verify it's actually a binary, not an error page
+        if file /tmp/nak | grep -q "executable\|ELF"; then
+            chmod +x /tmp/nak
+            sudo mv /tmp/nak /usr/local/bin/nak
+            print_success "nak installed to /usr/local/bin/nak"
+        else
+            print_error "Downloaded file is not a valid binary"
+            rm -f /tmp/nak
+            print_warning "Try installing manually: go install github.com/fiatjaf/nak@latest"
+            return 1
+        fi
     else
-        print_error "Failed to download nak"
+        print_error "Failed to download nak from $NAK_URL"
         print_warning "Try installing manually: go install github.com/fiatjaf/nak@latest"
         return 1
     fi
