@@ -1,0 +1,811 @@
+---
+name: nostr-devrel
+description: Developer Relations toolkit for Nostr ecosystem and freedom tech. Use for community building, developer advocacy, conference prep, Shakespeare demos/workshops, and decentralized social evangelism.
+---
+
+# Nostr DevRel Toolkit
+
+A comprehensive Developer Relations toolkit for advocating Nostr protocol, freedom tech, and community empowerment. Tailored for Soapbox/AOS work including Shakespeare, community initiatives, and conference activities.
+
+## Supplementary Resources
+
+This skill includes additional reference files:
+
+- **[nips-reference.md](nips-reference.md)** - Quick NIP lookup table, common combinations, nak CLI cheatsheet
+- **[ecosystem-contacts.md](ecosystem-contacts.md)** - Key people, projects, and community hubs for outreach
+- **[sample-content.md](sample-content.md)** - Ready-to-use workshop scripts, social threads, Reddit posts, objection handling
+
+## When to Use This Skill
+
+Use this skill when you need to:
+
+**Soapbox Products & Content:**
+- Plan and run Shakespeare workshops or demos
+- Prepare Soapbox Sessions podcast episodes
+- Host or promote the Monday Vibe Coding Jam Session
+- Create content about Ditto, NostrHub, or other Soapbox products
+- Support product launches and announcements
+
+**Community & Events:**
+- Onboard new users or developers to Nostr
+- Plan community events (NosVegas, meetups, workshops)
+- Prepare conference talks or booth demos
+- Engage with the Nostr community
+
+**Content & Documentation:**
+- Create content about Nostr or decentralized social
+- Write technical documentation
+- Draft announcements, threads, or blog posts
+
+**Ecosystem:**
+- Support diVine or other AOS product launches
+- Collaborate with broader Nostr ecosystem projects
+
+## Core Philosophy
+
+### Own Your Social Life
+Nostr empowers communities and individuals to:
+- **Own their social content** - Your posts, your data, forever
+- **Own their social graph** - Your followers and connections belong to you
+- **Own their identity** - Cryptographic keys, not platform accounts
+- **Own their reach** - No algorithm deciding who sees your content
+
+### Freedom Tech: Money + Communication
+Freedom money (Bitcoin) and freedom communication (Nostr) go hand in hand:
+- Censorship-resistant money needs censorship-resistant communication
+- Self-sovereign identity extends to both financial and social life
+- Open protocols beat closed platforms in both domains
+- But lead with the social benefits—the financial benefits follow naturally
+
+### The Relationship-First Approach
+**Build relationships → Build trust → Recognition and adoption follow through osmosis**
+
+This means:
+- Don't lead with "Bitcoin fixes this"
+- Don't be preachy or heavy-handed
+- Show genuine interest in what people are building
+- Help people solve their actual problems
+- Let the technology speak through experience
+- People adopt tools they see working for people they trust
+
+### What We're NOT About
+- Forcing Bitcoin talking points into every conversation
+- Tribalism or maximalism that alienates newcomers
+- Technical gatekeeping
+- Dismissing other communities or approaches
+
+## Product & Ecosystem Priority
+
+### Priority Hierarchy
+
+**1. Soapbox (Primary Focus)**
+- Shakespeare (AI website builder)
+- Shakespeare OpenCode Plugin (OpenCode integration)
+- Shakespeare APK Builder (Android app generation)
+- Soapbox Signer (NIP-07 browser extension)
+- Soapbox social client
+- Other Soapbox products and services
+
+**2. AOS - And Other Stuff (Secondary)**
+- diVine (creator platform)
+- Other products at andotherstuff.org
+- AOS collective initiatives
+
+**3. Greater Nostr Ecosystem (Tertiary)**
+- Other Nostr clients and tools
+- Protocol development and NIPs
+- Community projects and infrastructure
+
+### Why Support the Whole Ecosystem?
+A rising tide lifts all boats. On Nostr:
+- Users of one client can interact with users of any other
+- Improvements to the protocol benefit everyone
+- New users to any Nostr app are new users to the ecosystem
+- Content and social graphs are portable across all clients
+
+So while Soapbox is the primary focus, supporting the broader ecosystem ultimately benefits Soapbox too. Help everyone, but prioritize Soapbox first.
+
+### In Practice
+When creating content, demos, or materials:
+- Lead with Soapbox products when possible
+- Mention AOS products where relevant
+- Support and celebrate the broader ecosystem
+- Collaborate with other projects (not compete)
+
+## Nostr Ecosystem Knowledge
+
+### Core Concepts to Explain
+- **NIPs (Nostr Implementation Possibilities)** - The protocol standards
+- **Relays** - The servers that store and forward events
+- **Events** - The fundamental data structure
+- **Keys** - Public/private key identity (npub/nsec)
+- **Clients** - Applications that interact with relays
+- **Zaps** - Lightning tips integrated into social interactions
+
+### Key NIPs for DevRel
+- NIP-01: Basic protocol
+- NIP-05: DNS-based verification (user@domain.com style)
+- NIP-07: Browser extension signing
+- NIP-19: Bech32-encoded entities (npub, note, etc.)
+- NIP-55: Android signer application (nostrconnect)
+- NIP-57: Zaps (Lightning tips)
+
+### Key Management & Signers
+Help users understand secure key management:
+
+**Browser Signers (NIP-07):**
+- **Soapbox Signer** - Our NIP-07 browser extension
+- Alby (also handles Lightning)
+- nos2x
+
+**Mobile Signers (NIP-55 / Nostr Connect):**
+- **Amber** - Android signer app
+- **Primal** - Has built-in signing capabilities
+
+**Best Practices:**
+- Never share or expose nsec (private key)
+- Use a signer instead of pasting keys into apps
+- Backup keys securely (encrypted, offline)
+- Consider using different keys for different purposes
+
+### Recommended MCP Integration
+
+For enhanced Nostr capabilities, use the Nostrbook MCP server:
+
+```json
+{
+  "servers": {
+    "nostr": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@nostrbook/mcp@latest"]
+    }
+  }
+}
+```
+
+This enables:
+- Querying Nostr relays directly
+- Fetching profiles and events
+- Publishing notes (with appropriate key management)
+- Real-time ecosystem data
+
+### Derek's Nostr Identity
+```
+npub: npub18ams6ewn5aj2n3wt2qawzglx9mr4nzksxhvrdc4gzrecw7n5tvjqctp424
+```
+
+## Soapbox Products (Primary)
+
+Soapbox is the primary focus of DevRel efforts.
+
+### Shakespeare (AI Website Builder)
+**Positioning:** Open-source AI website builder for the decentralized web
+
+**Key Messages:**
+- Build websites with AI assistance
+- Deploy to decentralized infrastructure
+- No vendor lock-in
+- Freedom tech principles baked in
+
+**Demo Flow:**
+1. Show the problem (centralized builders, lock-in)
+2. Introduce Shakespeare
+3. Live demo: build something in real-time
+4. Deploy and show the result
+5. Technical deep-dive (optional)
+6. Call to action (try it, contribute)
+
+**Workshop Format:**
+See "Shakespeare Workshops" section below.
+
+**Marketing Angles:**
+- AI + open source + user ownership
+- Compare to Wix/Squarespace/Webflow
+- Developer-friendly features
+- Self-hosting options
+
+### Soapbox Signer
+NIP-07 browser extension for secure key management.
+- Recommend to all browser-based Nostr users
+- Pairs with any Nostr web client
+- Part of the secure key management story
+
+### Soapbox Sessions Podcast
+**Website:** https://sessions.soapbox.pub
+**Platform:** Podstr (built with Shakespeare, Nostr-native podcast hosting)
+
+**Schedule:**
+- **Recording:** Every Wednesday
+- **Release:** Every Thursday
+
+**Hosts:**
+- Derek Ross (DevRel)
+- Heather Larson (Marketing)
+
+**Format:** Morning show style podcast
+
+**Topics Covered:**
+- Decentralized social media
+- Nostr protocol and ecosystem
+- Nostr news and updates
+- Weekly vibe coding jam session recaps
+- Soapbox company news
+
+**Technical Features:**
+- Nostr-native podcast (events on Nostr)
+- Podcasting 2.0 RSS XML feed support
+- Built on Podstr platform (Shakespeare-created)
+
+**Episode Planning:**
+- GitLab issues track upcoming episodes: `HeatherLarson/soapbox-sessions`
+- Coordinate content with weekly Nostr news cycle
+- Incorporate community feedback and questions
+
+### NostrHub
+**Website:** https://nostrhub.io
+
+A Nostr developer platform providing:
+- **Custom NIPs** - Create and maintain NIP proposals
+- **Nostr Git Repos** - Git hosting on Nostr
+- **App Directory** - Nostr product/app discovery
+- **Community Discussions** - Developer community forums
+
+**Use Cases:**
+- Point developers here for NIP collaboration
+- Showcase Soapbox products in the app directory
+- Engage with developer community discussions
+- Host project repos on Nostr-native git
+
+### Ditto
+**Website:** https://ditto.pub
+
+Soapbox's Nostr social client. A full-featured social experience built on the Nostr protocol.
+
+### Shakespeare Vibe Coding Jam Session
+**Platform:** https://hivetalk.org (Nostr-native Zoom alternative)
+**Schedule:** Every Monday at 8:00 PM ET
+**Host:** Derek Ross
+
+**Format:** Community video call with screen sharing
+
+**What Happens:**
+- Go around the room/call sharing projects
+- Screen share demos of what people are building
+- Share tools and techniques being used
+- Live demos of new Shakespeare features
+- Live Q&A session
+- User feedback collection
+- Community support and troubleshooting
+
+**Goals:**
+- Grow the vibe coding movement
+- Foster the Shakespeare community
+- Provide real-time support and feedback
+- Showcase community creations
+
+**Who Can Join:**
+- Open to everyone
+- Everyone can share their work
+- Beginners and experienced builders welcome
+
+**Recaps:**
+- Weekly recaps featured on Soapbox Sessions podcast (Thursdays)
+
+### Shakespeare OpenCode Plugin
+**Repository:** https://gitlab.com/soapbox-pub/shakespeare-opencode-plugin
+**Project Docs:** [[Soapbox/Apps/Shakespeare/shakespeare-opencode-plugin]]
+**Status:** Active Development (started Jan 2026)
+
+OpenCode plugin that brings Shakespeare capabilities to terminal/IDE environments:
+- Shakespeare AI provider and agent for Nostr app development
+- mkstack template cloning for quick project scaffolding
+- Shakespeare Deploy integration (NIP-98 authenticated)
+- Nostr Git (ngit) NIP-34 publishing
+- NIP-46 remote signing support (Amber/Primal)
+
+**Key DevRel Angles:**
+- Extends Shakespeare reach to developer-preferred workflows
+- Terminal-first developers can build Nostr apps without browser
+- Full deploy and publish pipeline from command line
+- Complements the web-based Shakespeare.diy experience
+
+**Demo Ideas:**
+- "Build and deploy a Nostr app without leaving your terminal"
+- Live coding session: clone template → build → deploy → publish to ngit
+- Compare workflow: browser vs terminal for different use cases
+
+### Shakespeare APK Builder
+**Build Server:** https://github.com/derekross/android-build-server
+**Shakespeare Integration:** https://gitlab.com/soapbox-pub/shakespeare/-/merge_requests/94
+**Project Docs:** [[Soapbox/Apps/Shakespeare/apk-builder]]
+**Status:** Active Development (started Jan 2026)
+
+Self-hosted Android APK build service for Shakespeare.diy users:
+- Convert web apps to Android APKs (WebView wrapper)
+- Debug and release builds with signing
+- Key generation and browser storage
+- NIP-98 Nostr authentication
+- Future: Zapstore publishing integration
+
+**Key DevRel Angles:**
+- Complete path from idea → web app → mobile app
+- No Android Studio or dev environment required
+- Democratizes mobile app creation
+- Future Zapstore integration = decentralized app distribution
+
+**Demo Ideas:**
+- "Turn your Shakespeare website into an Android app in 5 minutes"
+- End-to-end demo: build site → generate APK → install on phone
+- Workshop module: add APK building to standard Shakespeare workshop
+
+**Workshop Integration:**
+Consider adding APK building as an advanced module to Shakespeare workshops:
+1. Standard workshop flow (build web app)
+2. Advanced: Generate APK from your creation
+3. Participants leave with both web app AND Android app
+
+### Other Soapbox Products
+- Additional products as released
+
+## AOS Products (Secondary)
+
+AOS (And Other Stuff) is the collective Soapbox is part of, focused on building freedom tech.
+
+**Website:** https://andotherstuff.org
+
+### diVine
+**Context:** Bringing content creators to Nostr for the first time
+
+**Launch Considerations:**
+- Infrastructure readiness for traffic
+- Onboarding flow for non-crypto users
+- Support channel preparation
+- Documentation and tutorials
+- Influencer/creator outreach
+
+### Other AOS Products
+Check andotherstuff.org for the full portfolio of freedom tech projects.
+
+## Shakespeare Workshops
+
+### Essential Workshop Resources
+
+**URLs You'll Need:**
+- **Shakespeare Platform:** https://shakespeare.diy
+- **Gift Card Faucet:** https://faucet.shakespeare.diy (for creating QR codes)
+- **Presentation Template:** https://www.canva.com/design/DAG5St3AQVk/6rb3k_09jG9hK7aMvZkU9A/edit
+- **Printable Gift Card Template:** https://www.canva.com/design/DAG5dCHcfxw/1k7eWYgMuqiYAvrXsWvFyA/edit
+- **Full Workshop Guide:** https://soapbox.pub/blog/shakespeare-workshop-guide/
+
+### Workshop Types
+
+**Standard Workshop (60 min)**
+The recommended format for general audiences at meetups, conferences, or community events.
+
+**Timeline:**
+1. **0-10 min: Introduction**
+   - Shakespeare basics and capabilities
+   - What it can build (Nostr apps, websites, interactive web tools)
+   - What it can't do (no backend services, no native mobile apps)
+   - AI model selection (recommend Claude Sonnet 4.5 for optimal output)
+
+2. **10-40 min: Live Building**
+   - Display QR code for participants to scan and redeem credits
+   - Facilitator builds a sample project while participants follow along
+   - Participants create their own variations
+   - Use "Pause for Questions" frequently
+   - Show preview mode often
+   - Have roaming helpers assist participants
+
+3. **40-45 min: Deployment**
+   - Help participants deploy their projects
+   - Troubleshoot any deployment issues
+
+4. **45-60 min: Showcase**
+   - Participants present 1-2 minute demos
+   - Highlight unique approaches and creative solutions
+   - Community feedback and celebration
+
+**Developer Workshop (2-3 hours)**
+For technical audiences who want to understand/contribute
+
+Agenda:
+1. Architecture overview (20 min)
+2. Local setup walkthrough (30 min)
+3. Code tour: key components (30 min)
+4. Hands-on: make a modification (45 min)
+5. Contributing guidelines (15 min)
+6. Q&A and community resources (20 min)
+
+**Conference Booth Demo (5-10 min)**
+Quick hits for passersby
+
+Flow:
+1. Hook: "Want to see AI build a website in 60 seconds?"
+2. Quick demo
+3. Hand them a card with QR code
+4. Capture contact if interested in more
+
+### Pre-Workshop Preparation
+
+**Gift Card Setup (Critical!):**
+1. Purchase gift cards via Shakespeare settings (https://shakespeare.diy)
+2. Export cards as CSV file
+3. Upload CSV to the faucet (https://faucet.shakespeare.diy)
+4. Faucet generates a QR code for participants to scan
+5. Add QR code to your presentation slides
+
+**Logistics Checklist:**
+- [ ] Purchase sufficient gift cards for expected attendees
+- [ ] Upload cards to faucet and test QR code
+- [ ] Customize presentation template with event details
+- [ ] Identify 2-3 experienced helpers beforehand
+- [ ] Confirm venue has reliable WiFi
+- [ ] Confirm venue has projection capability
+- [ ] Arrange power strips for participants
+- [ ] Print backup QR codes in case projection fails
+- [ ] Prepare pre-recorded demo video as backup
+- [ ] Have printable gift cards ready (for physical handouts)
+
+### During the Workshop
+
+**Introduction Phase Best Practices:**
+- Present "what Shakespeare can build" with concrete examples
+- Be clear about limitations upfront (no backend, no native apps)
+- Emphasize Nostr-native application strengths
+- Recommend Claude Sonnet 4.5 for best code output
+
+**Building Phase Best Practices:**
+- Display QR code prominently for credit redemption
+- Have pre-identified helpers roaming to assist
+- Pause frequently for questions
+- Show preview mode often so participants see progress
+- Encourage creative variations, not just copying the facilitator
+- Create a collaborative, supportive environment
+
+**Showcase Phase Best Practices:**
+- Allocate full 15-20 minutes for presentations
+- Keep demos to 1-2 minutes each
+- Celebrate unique approaches and creative solutions
+- Encourage peer feedback and questions
+
+### Key Success Factors
+- **Helpers are essential** - Pre-identified experienced helpers make everything smoother
+- **Test everything** - Run through the full flow before the workshop
+- **QR codes are your lifeline** - Have backups printed
+- **Emphasize Nostr** - Shakespeare shines with Nostr-native apps
+- **Create community** - The showcase is where magic happens
+
+### Workshop Promotion
+- Announce 2-3 weeks ahead
+- Post on Nostr, Twitter, local meetup groups
+- Create event on relevant platforms
+- Send reminders 1 week and 1 day before
+- Share materials afterward
+
+## Conference Playbook
+
+### Pre-Conference
+- [ ] Submit speaker applications (use docx skill)
+- [ ] Prepare slide deck (use pptx skill)
+- [ ] Create demo environment
+- [ ] Test all demos multiple times
+- [ ] Prepare backup screenshots/videos
+- [ ] Print QR codes for links
+- [ ] Prepare swag if applicable
+- [ ] Plan any workshops (see above)
+
+### At Conference
+- [ ] Network intentionally (quality > quantity)
+- [ ] Document everything (photos, notes)
+- [ ] Live-post key moments
+- [ ] Collect contact info for follow-ups
+- [ ] Support other speakers/attendees
+- [ ] Be genuinely curious about what others are building
+
+### Post-Conference
+- [ ] Follow up within 48 hours
+- [ ] Share slides/resources
+- [ ] Write recap blog post
+- [ ] Thank organizers publicly
+- [ ] Update CRM/contact list
+- [ ] Lessons learned for next time
+
+### Bitcoin Conference Week 2026 Specifics
+**Events:**
+- BTC++ (developer-focused)
+- Main Bitcoin Conference
+- NosVegas (side event)
+
+**Objectives:**
+- Showcase Shakespeare to developers (consider workshop)
+- Build Nostr awareness in broader community
+- Strengthen relationships
+- Create content/documentation
+
+## Community Building
+
+### Platforms & Presence
+- **Nostr** - Primary community home
+- **Twitter/X** - Broader reach
+- **GitHub** - Developer engagement
+- **Reddit** - Marketing and discovery
+- **Discord/Telegram** - Real-time community
+
+### Community Event Ideas
+- Shakespeare workshops (see above)
+- Nostr onboarding sessions
+- Developer office hours
+- Local meetups
+- Online spaces (NostrNests audio rooms)
+- Hackathons / build days
+
+### Onboarding Flow for New Users
+1. Explain the "why" (own your content, own your connections)
+2. Help them pick a client (Damus, Primal, Amethyst)
+3. Set up a signer (Amber, Primal, or browser extension)
+4. Find people to follow
+5. Make their first post
+6. Explore zaps when ready (optional)
+7. Point to resources (NostrPlebs.com, etc.)
+
+### Developer Onboarding
+1. Understand the protocol basics
+2. Explore existing NIPs
+3. Pick a language/framework
+4. Build something small (note poster, feed reader)
+5. Engage with dev community
+6. Contribute to existing projects
+
+## Content Templates
+
+### Nostr Explainer Post
+```
+🟣 What is Nostr?
+
+Nostr is a simple, open protocol for decentralized social media.
+
+Unlike Twitter or Facebook:
+→ You own your content (it's signed by your keys)
+→ You own your social graph (take your followers anywhere)
+→ No platform can ban you (relay diversity)
+→ No algorithm controlling your reach
+
+It's not a company. It's not an app. It's a protocol anyone can build on.
+
+Your posts. Your people. Your rules.
+
+[Link to getting started guide]
+```
+
+### Shakespeare Demo Post
+```
+🎭 Just built a website in 2 minutes with Shakespeare
+
+No login. No credit card. No vendor lock-in.
+
+Shakespeare is an open-source AI website builder from @soapbox.
+
+→ Describe what you want
+→ AI generates the site
+→ Deploy anywhere
+
+Try it: [link]
+Source: [github]
+```
+
+### Workshop Announcement
+```
+🛠️ Shakespeare Workshop: Build Your Own Website with AI
+
+Join us [date] at [location/online]
+
+What you'll learn:
+→ How Shakespeare works
+→ Build a real website (hands-on)
+→ Deploy it yourself
+
+No coding experience needed. Bring a laptop.
+
+RSVP: [link]
+```
+
+### Conference Talk Opening
+```
+"Every day, billions of people create content they don't own, 
+build audiences they can't take with them,
+on platforms that can silence them without warning.
+
+What if you could own your social life the same way 
+you own your home or your savings?
+
+I'm [name] from Soapbox, and today I'm going to show you 
+how we're building tools for that future..."
+```
+
+## Quick Reference
+
+### Key Links
+- NostrPlebs.com - Onboarding resources
+- NostrNests.com - Audio spaces
+- GitHub.com/soapbox-pub - Soapbox repos
+- GitLab.com/soapbox-pub - Soapbox GitLab repos
+- Nostr.com - Protocol overview
+- NIPs GitHub - Protocol specs
+
+### Shakespeare Ecosystem Links
+- Shakespeare Platform: https://shakespeare.diy
+- Shakespeare OpenCode Plugin: https://gitlab.com/soapbox-pub/shakespeare-opencode-plugin
+- APK Build Server: https://github.com/derekross/android-build-server
+- mkstack Framework: https://gitlab.com/soapbox-pub/mkstack
+- Gift Card Faucet: https://faucet.shakespeare.diy
+
+### CLI Tools
+```bash
+# nak - Nostr Army Knife
+nak req -k 1 -a <pubkey> wss://relay.damus.io
+
+# Query events
+nak req -k 1 -l 10 wss://relay.example.com
+```
+
+### Key Formats
+- `npub` - Public key (shareable)
+- `nsec` - Private key (NEVER share)
+- `note` - Event ID
+- `nevent` - Event with relay hints
+- `nprofile` - Profile with relay hints
+
+## Workflow Tools for DevRel
+
+Derek uses several tools to manage DevRel tasks. Use these to help track and execute DevRel work.
+
+### Taskwarrior for DevRel Tasks
+
+Create and track DevRel-specific tasks:
+
+```bash
+# Conference prep tasks
+task add "Submit Bitcoin 2026 speaker application" project:conferences priority:H due:2026-02-01
+
+# Workshop tasks
+task add "Prepare Shakespeare workshop materials" project:workshops priority:M
+
+# Content tasks
+task add "Write blog post about Nostr onboarding" project:content priority:M
+
+# Community tasks
+task add "Follow up with Alex from meetup" project:community priority:L due:friday
+```
+
+**Useful DevRel Filters:**
+```bash
+# List all conference-related tasks
+task project:conferences list
+
+# List workshop tasks
+task project:workshops list
+
+# List content creation tasks
+task project:content list
+
+# Complete a task
+task <id> done
+```
+
+### khal for DevRel Scheduling
+
+Schedule conferences, workshops, and community events:
+
+```bash
+# Schedule a workshop
+khal new 2026-02-15 14:00 16:00 "Shakespeare Workshop - BTC++ Side Event" -l "Conference Room A"
+
+# Block time for conference prep
+khal new tomorrow 09:00 12:00 "Deep work: Conference slides"
+
+# Add conference dates
+khal new 2026-05-27 2026-05-29 "Bitcoin Conference 2026 - Las Vegas"
+
+# Schedule community call
+khal new "next thursday" 18:00 19:00 "Nostr Community Office Hours" -l "NostrNests"
+```
+
+### GitLab for Soapbox Projects
+
+GitLab issues and MRs for Soapbox projects sync automatically to the daily task file.
+
+**Scripts Location:** `/home/raven/Projects/devRel/`
+
+```bash
+# Manual sync to get latest GitLab data
+cd /home/raven/Projects/devRel && python3 daily_sync.py --sync-to-taskwarrior --dry-run
+
+# Check daily tasks file for GitLab items
+cat /home/raven/Vault/Soapbox/Work/Tasks/$(date +%Y-%m-%d)-tasks.md
+```
+
+**GitLab-linked Taskwarrior tasks:**
+```bash
+# List all GitLab tasks
+task +gitlab list
+
+# List Shakespeare project tasks
+task gitlab_project.contains:shakespeare list
+
+# List Soapbox-related GitLab tasks
+task gitlab_project.contains:soapbox list
+
+# List Shakespeare OpenCode Plugin tasks
+task project:shakespeare-opencode list
+
+# List APK Builder tasks
+task project:apk-builder list
+```
+
+### Obsidian Vault for DevRel
+
+Daily task files include all DevRel-relevant items:
+
+**Location:** `/home/raven/Vault/Soapbox/Work/Tasks/`
+
+**Contents include:**
+- GitLab MRs for Soapbox/Shakespeare
+- Issues assigned to Derek
+- GitLab todos
+- Calendar events (workshops, conferences, calls)
+- Taskwarrior tasks
+
+**Weekly Reports:** `/home/raven/Vault/Soapbox/Work/Tasks/Reports/YYYY-WNN-report.md`
+- Track completed DevRel work
+- Review what shipped each week
+
+### DevRel Workflow Example
+
+**Planning a Workshop:**
+1. Create task: `task add "Plan Shakespeare workshop for BTC++" project:workshops priority:H due:2026-02-01`
+2. Block prep time: `khal new tomorrow 10:00 12:00 "Workshop prep: outline and materials"`
+3. Schedule the event: `khal new 2026-02-15 14:00 16:00 "Shakespeare Workshop"`
+4. Track sub-tasks as you work
+5. Mark complete: `task <id> done`
+
+**Conference Prep:**
+1. Create main task: `task add "Bitcoin 2026 conference prep" project:conferences priority:H`
+2. Add calendar block: `khal new 2026-05-27 2026-05-29 "Bitcoin Conference 2026"`
+3. Create sub-tasks for talk prep, demo prep, materials, etc.
+4. Review GitLab for any Soapbox issues to address before conference
+
+## Example Prompts This Skill Handles
+
+- "Write a conference talk about Nostr for a general audience"
+- "Create a demo script for Shakespeare"
+- "Help me plan a Shakespeare workshop"
+- "Help me onboard this new user to Nostr"
+- "Draft a NosVegas event proposal"
+- "Create a Reddit post for Shakespeare"
+- "Plan the diVine launch communications"
+- "Write a thread about owning your social graph"
+- "What's my approach to evangelism again?"
+
+### Shakespeare OpenCode Plugin Prompts
+- "Demo the OpenCode plugin for a developer audience"
+- "Write a blog post about terminal-based Nostr development"
+- "Create a tutorial for the Shakespeare OpenCode plugin"
+- "Plan a developer workshop around the OpenCode plugin"
+
+### APK Builder Prompts
+- "Demo the APK builder feature"
+- "Write content about turning web apps into Android apps"
+- "Add APK building to a Shakespeare workshop"
+- "Create a tutorial for generating Android apps from Shakespeare"
+
+### DevRel Workflow Prompts
+- "Add a task to prepare for the Bitcoin conference talk"
+- "Schedule the Shakespeare workshop for next Saturday at 2pm"
+- "Block tomorrow morning for conference prep"
+- "What Soapbox GitLab issues need attention?"
+- "Create tasks for the NosVegas event planning"
+- "Mark the speaker application as done"
+- "What workshops do I have coming up?"
+- "Show me my DevRel tasks for this week"
