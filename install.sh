@@ -248,21 +248,19 @@ install_python_libraries() {
     print_substep "Installing Python libraries for sync scripts..."
 
     # Ensure python3-venv is installed (required for creating virtual environments)
+    # Note: python3 -m venv --help can pass even when ensurepip is missing,
+    # so we install the venv package proactively on systems that need it
     case $PKG_MANAGER in
         apt)
             # Get Python version and install corresponding venv package
             PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            if ! python3 -m venv --help >/dev/null 2>&1; then
-                print_substep "Installing python${PYTHON_VERSION}-venv..."
-                sudo apt-get install -y "python${PYTHON_VERSION}-venv" 2>/dev/null || \
-                    sudo apt-get install -y python3-venv 2>/dev/null || \
-                    print_warning "Could not install python3-venv"
-            fi
+            print_substep "Ensuring python${PYTHON_VERSION}-venv is installed..."
+            sudo apt-get install -y "python${PYTHON_VERSION}-venv" 2>/dev/null || \
+                sudo apt-get install -y python3-venv 2>/dev/null || \
+                print_warning "Could not install python3-venv"
             ;;
         dnf)
-            if ! python3 -m venv --help >/dev/null 2>&1; then
-                sudo dnf install -y python3-virtualenv 2>/dev/null || true
-            fi
+            sudo dnf install -y python3-pip 2>/dev/null || true
             ;;
         pacman)
             # python-virtualenv is usually included with python on Arch
