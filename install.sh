@@ -247,16 +247,46 @@ install_python_cli_tools() {
 install_python_libraries() {
     print_substep "Installing Python libraries for sync scripts..."
 
+    # Ensure python3-venv is installed (required for creating virtual environments)
+    case $PKG_MANAGER in
+        apt)
+            # Get Python version and install corresponding venv package
+            PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            if ! python3 -m venv --help >/dev/null 2>&1; then
+                print_substep "Installing python${PYTHON_VERSION}-venv..."
+                sudo apt-get install -y "python${PYTHON_VERSION}-venv" 2>/dev/null || \
+                    sudo apt-get install -y python3-venv 2>/dev/null || \
+                    print_warning "Could not install python3-venv"
+            fi
+            ;;
+        dnf)
+            if ! python3 -m venv --help >/dev/null 2>&1; then
+                sudo dnf install -y python3-virtualenv 2>/dev/null || true
+            fi
+            ;;
+        pacman)
+            # python-virtualenv is usually included with python on Arch
+            ;;
+        brew)
+            # venv is included with Python on macOS
+            ;;
+    esac
+
     # Create a virtual environment for sync scripts
     VENV_DIR="$SCRIPT_DIR/scripts/sync/venv"
 
     if [[ ! -d "$VENV_DIR" ]]; then
-        python3 -m venv "$VENV_DIR"
+        if python3 -m venv "$VENV_DIR"; then
+            print_substep "Created virtual environment"
+        else
+            print_warning "Could not create virtual environment. Sync scripts may need manual setup."
+            return 1
+        fi
     fi
 
     # Install libraries in the venv
     "$VENV_DIR/bin/pip" install --upgrade pip
-    "$VENV_DIR/bin/pip" install python-gitlab requests
+    "$VENV_DIR/bin/pip" install python-gitlab requests python-dotenv
 
     print_substep "Libraries installed in scripts/sync/venv/"
     print_info "Run sync scripts with: scripts/sync/venv/bin/python3 scripts/sync/daily_sync.py"
