@@ -352,6 +352,32 @@ install_obsidian() {
     print_success "Obsidian installed"
 }
 
+# Install OpenCode CLI
+install_opencode() {
+    if command_exists opencode; then
+        print_substep "OpenCode already installed ($(opencode --version 2>/dev/null || echo 'version unknown'))"
+        return 0
+    fi
+
+    print_substep "Installing OpenCode CLI..."
+
+    case $OS in
+        linux|macos)
+            if curl -fsSL https://opencode.ai/install | bash; then
+                print_success "OpenCode installed"
+            else
+                print_warning "OpenCode installation failed"
+                print_info "Visit https://opencode.ai/download to install manually"
+                return 1
+            fi
+            ;;
+        *)
+            print_info "Visit https://opencode.ai/download to install OpenCode"
+            return 1
+            ;;
+    esac
+}
+
 # Install OpenCode Sidebar plugin for Obsidian
 install_opencode_sidebar() {
     print_substep "Installing OpenCode Sidebar plugin..."
@@ -547,6 +573,11 @@ main() {
     print_header "Installing Obsidian"
     print_step "Installing Obsidian..."
     install_obsidian
+
+    # Install OpenCode
+    print_header "Installing OpenCode"
+    print_step "Installing OpenCode CLI..."
+    install_opencode
 
     # Setup configuration directories
     print_header "Setting Up Configuration"
