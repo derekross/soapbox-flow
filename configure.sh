@@ -267,20 +267,36 @@ configure_nostr() {
         if [[ $REPLY == "2" ]]; then
             if command_exists nak; then
                 print_substep "Generating new keypair..."
-                NSEC=$(nak key generate 2>&1) || {
-                    print_error "Failed to generate keypair"
-                    return 1
-                }
 
-                if [[ -z "$NSEC" || ! "$NSEC" =~ ^nsec1 ]]; then
-                    print_error "Invalid key generated: $NSEC"
+                # Generate hex private key
+                HEX_PRIVKEY=$(nak key generate 2>&1)
+                if [[ -z "$HEX_PRIVKEY" ]] || [[ ${#HEX_PRIVKEY} -ne 64 ]]; then
+                    print_error "Failed to generate keypair: $HEX_PRIVKEY"
+                    print_info "Try running manually: nak key generate"
                     return 1
                 fi
 
-                NPUB=$(nak key public "$NSEC" 2>&1) || {
-                    print_error "Failed to derive public key"
+                # Convert to nsec (bech32 format)
+                NSEC=$(nak encode nsec "$HEX_PRIVKEY" 2>&1)
+                if [[ ! "$NSEC" =~ ^nsec1 ]]; then
+                    print_error "Failed to encode nsec: $NSEC"
                     return 1
-                }
+                fi
+
+                # Get public key hex
+                HEX_PUBKEY=$(nak key public "$HEX_PRIVKEY" 2>&1)
+                if [[ -z "$HEX_PUBKEY" ]] || [[ ${#HEX_PUBKEY} -ne 64 ]]; then
+                    print_error "Failed to derive public key: $HEX_PUBKEY"
+                    return 1
+                fi
+
+                # Convert to npub (bech32 format)
+                NPUB=$(nak encode npub "$HEX_PUBKEY" 2>&1)
+                if [[ ! "$NPUB" =~ ^npub1 ]]; then
+                    print_error "Failed to encode npub: $NPUB"
+                    return 1
+                fi
+
                 NOSTR_NPUB="$NPUB"
 
                 echo ""
